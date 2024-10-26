@@ -7,6 +7,7 @@ clusterGroup:
     - golang-external-secrets
     - manuela-data-lake
     - hello-world
+    - kafka
   subscriptions:
     acm:
       name: advanced-cluster-management
@@ -19,11 +20,13 @@ clusterGroup:
       source: community-operators
       namespaces:
       - manuela-data-lake
+      - kafka
 
     camelk-prod-dev:
       name: camel-k
       namespaces:
       - manuela-data-lake
+      - kafka
       channel: stable-v2
       source: community-operators
       sourceNamespace: openshift-marketplace
