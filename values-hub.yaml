@@ -14,7 +14,9 @@ clusterGroup:
       channel: release-2.11
 
     amqstreams-prod-dev:
-      name: amq-streams
+      channel: stable
+      name: strimzi-kafka-operator
+      source: community-operators
       namespaces:
       - manuela-data-lake
 
