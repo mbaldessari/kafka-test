@@ -87,7 +87,7 @@ clusterGroup:
     production-data-lake:
       name: production-data-lake
       namespace: manuela-data-lake
-      project: production-datalake
+      project: hub
       path: charts/datacenter/manuela-data-lake
 
   imperative:
