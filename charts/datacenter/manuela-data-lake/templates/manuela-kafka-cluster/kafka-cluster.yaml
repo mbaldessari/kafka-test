@@ -8,6 +8,7 @@ metadata:
     strimzi.io/kraft: enabled
     strimzi.io/node-pools: enabled
 spec:
+  version: 3.8.0
   kafka:
     listeners:
       - name: plain
