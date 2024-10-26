@@ -5,18 +5,31 @@ clusterGroup:
     - open-cluster-management
     - vault
     - golang-external-secrets
-    - config-demo
+    - kafka
     - hello-world
   subscriptions:
     acm:
       name: advanced-cluster-management
       namespace: open-cluster-management
       channel: release-2.11
-      #csv: advanced-cluster-management.v2.6.1
+
+    amqstreams-prod-dev:
+      name: amq-streams
+      namespaces:
+      - kafka
+
+    camelk-prod-dev:
+      name: camel-k
+      namespaces:
+      - kafka
+      channel: stable-v2
+      source: community-operators
+      sourceNamespace: openshift-marketplace
+
   projects:
     - hub
-    - config-demo
     - hello-world
+
   # Explicitly mention the cluster-state based overrides we plan to use for this pattern.
   # We can use self-referential variables because the chart calls the tpl function with these variables defined
   sharedValueFiles:
@@ -49,6 +62,7 @@ clusterGroup:
           kind: ManagedClusterInfo
           jsonPointers:
             - /spec/loggingCA
+
     vault:
       name: vault
       namespace: vault
@@ -56,22 +70,26 @@ clusterGroup:
       path: "."
       chartVersion: vault-1.18.0
       repoURL: https://github.com/mbaldessari/hashicorp-vault-chart
+
     golang-external-secrets:
       name: golang-external-secrets
       namespace: golang-external-secrets
       project: hub
       chart: golang-external-secrets
       chartVersion: 0.1.*
-    config-demo:
-      name: config-demo
-      namespace: config-demo
-      project: config-demo
-      path: charts/all/config-demo
+
     hello-world:
       name: hello-world
       namespace: hello-world
       project: hello-world
       path: charts/all/hello-world
+
+    production-data-lake:
+      name: production-data-lake
+      namespace: manuela-data-lake
+      project: production-datalake
+      path: charts/datacenter/manuela-data-lake
+
   imperative:
     # NOTE: We *must* use lists and not hashes. As hashes lose ordering once parsed by helm
     # The default schedule is every 10 minutes: imperative.schedule
