@@ -7,6 +7,8 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   kafka:
+    authorization:
+      type: simple
     replicas: 3
     listeners:
       - name: plain
