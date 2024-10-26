@@ -5,11 +5,9 @@ metadata:
   namespace: manuela-data-lake
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-    strimzi.io/kraft: enabled
-    strimzi.io/node-pools: enabled
 spec:
-  version: 3.8.0
   kafka:
+    replicas: 3
     listeners:
       - name: plain
         port: 9092
@@ -24,18 +22,6 @@ spec:
         type: route
         tls: true
         autentication:
-          type: tls
-      - name: wtfinternal
-        port: 9096
-        type: internal
-        tls: true
-        autentication:
-          type: scram-sha-512
-      - name: wtf
-        port: 9095
-        type: route
-        tls: true
-        autentication:
           type: scram-sha-512
     authorization:
       type: simple
@@ -45,6 +31,12 @@ spec:
       transaction.state.log.min.isr: 2
       transaction.state.log.replication.factor: 3
       min.insync.replicas: 2
+    storage:
+      type: ephemeral
+  zookeeper:
+    replicas: 3
+    storage:
+      type: ephemeral
   entityOperator:
     topicOperator: {}
     userOperator: {}
